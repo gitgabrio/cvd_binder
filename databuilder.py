@@ -1,51 +1,52 @@
-from random import random
+from random import random, randrange, getrandbits, randint 
 import pandas as pd
 import numpy as np
+import string
 
-def disp_risk(holder_index, amount, noise=0.1):
-    random_threshold = 1 - noise
-    if holder_index == 3:
-        if amount >= 200:
-            return 4 if random()<random_threshold else 2
-        elif amount >= 100:
-            return 2
-        else:
-            return 1
-    elif holder_index == 2:
-        if amount >= 200:
-            return 4
-        elif amount >= 150:
-            return 3 if random()<random_threshold else 2
-        elif amount >= 100:
-            return 2
-        else:
-            return 1
-    elif holder_index == 1:
-        if amount >= 200:
-            return 5
-        elif amount >= 150:
-            return 3 if random()<random_threshold else 2
-        elif amount >= 100:
-            return 2
-        else:
-            return 1
-    else:
-        if amount >= 200:
-            return 5
-        elif amount >= 150:
-            return 4 if random()<random_threshold else 3
-        elif amount >= 100:
-            return 3
-        else:
-            return 2
+# type_index = item type
+# item_index = item object
+item_types = ["Book", "Car", "PC"]
+
+def create_item(item_type, item_index):
+    return item_type + "-" + str(item_index)
+
+def create_item_names(item_type):
+    items = []
+    for x in range(10):
+        items.append(create_item(item_type, x))
+    return items    
+            
+def create_items():
+    items = []
+    for x in item_types:
+         items.append([x, create_item_names(x)])
+    return items          
+
+def buy_item(type_index, item_index):
+    return created_items[type_index][item_index]
+
+def buy_items(type_indexes, item_indexes, created_items, size_of_dataset):
+    items = []
+    for x in range(size_of_dataset):
+        type_index = type_indexes[x]
+        item_index = item_indexes[x]
+        item = created_items[type_index][1][item_index]
+        items.append(item)
+    return items
+
 
 if __name__ == '__main__':
-    size_of_dataset=1000
-    holders_index = np.random.randint(0, 4, size_of_dataset)
-    amounts = list(map(lambda x: round(max(10, x), 2), np.random.normal(125, 50, size_of_dataset)))
-    dispute_risk = list(map(lambda x, y: disp_risk(x, y), holders_index, amounts))
+    created_items = create_items()
+    print(created_items)
     
-    raw_data = {'holder_index': holders_index, 'amount': amounts, 'dispute_risk': dispute_risk}
+    size_of_dataset=1000
+   
+    type_indexes = np.random.randint(0, 3, size_of_dataset)
+    item_indexes = np.random.randint(0, 9, size_of_dataset)
+    
+    buyed_items = buy_items(type_indexes, item_indexes, created_items, size_of_dataset)
+    
+    raw_data = {'type': type_indexes, 'buyed_items': buyed_items}
     
     df = pd.DataFrame(raw_data)
     
