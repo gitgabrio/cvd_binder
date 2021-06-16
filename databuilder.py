@@ -91,7 +91,7 @@ if __name__ == '__main__':
     buyed_items = buy_items(buyed_type_indexes, buyed_items_indexes, created_items, size_of_dataset)
     
     
-    raw_data = {'type': buyed_types, 'buyed_items': buyed_items, 'buyer_group': buyer_group}
+    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'type_index': buyed_type_indexes, 'item_indexes': buyed_items_indexes, 'buyer_group': buyer_group}
     
     df = pd.DataFrame(raw_data)
     
