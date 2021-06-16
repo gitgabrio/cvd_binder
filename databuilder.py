@@ -60,6 +60,18 @@ def buy_items(type_indexes, item_indexes, created_items, size_of_dataset):
             item_index = sub_items_indexes[y]
             sub_items.append(created_items[type_index][1][item_index])
         items.append(sub_items)
+    return items
+
+def buy_items_ids(item_indexes, size_of_dataset):
+    items = []
+    for x in range(size_of_dataset):
+        sub_items = ""
+        sub_items_indexes = item_indexes[x]
+        items_id = 0
+        for y in range(number_of_items_per_customer):
+            item_index = sub_items_indexes[y]
+            sub_items += str(item_index)
+        items.append(int(sub_items))
     return items 
 
 # Define the group_id based on type and item buyed
@@ -89,9 +101,10 @@ if __name__ == '__main__':
     
     buyed_types = buy_types(buyed_type_indexes, created_items, size_of_dataset)
     buyed_items = buy_items(buyed_type_indexes, buyed_items_indexes, created_items, size_of_dataset)
+    buyed_items_ids = buy_items_ids(buyed_items_indexes, size_of_dataset)
     
     
-    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'type_index': buyed_type_indexes, 'item_indexes': buyed_items_indexes, 'buyer_group': buyer_group}
+    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'type_index': buyed_type_indexes, 'item_indexes': buyed_items_ids, 'buyer_group': buyer_group}
     
     df = pd.DataFrame(raw_data)
     
