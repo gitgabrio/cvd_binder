@@ -65,24 +65,19 @@ def buy_items(type_indexes, item_indexes, created_items, size_of_dataset):
 def buy_items_ids(item_indexes, size_of_dataset):
     items = []
     for x in range(size_of_dataset):
-        sub_items = ""
-        sub_items_indexes = item_indexes[x]
-        items_id = 0
+        buyed_items_indexes = item_indexes[x]
+        sub_group_id = 0
         for y in range(number_of_items_per_customer):
-            item_index = sub_items_indexes[y]
-            sub_items += str(item_index)
-        items.append(int(sub_items))
+            sub_group_id += buyed_items_indexes[y]
+        items.append(sub_group_id)
     return items 
 
 # Define the group_id based on type and item buyed
-def buy_group(type_index, buyed_items_indexes):
+def buy_group(type_index, buy_items_id):
     group_id = type_index * 10
-    sub_group_id = 0
-    for x in range(number_of_items_per_customer):
-        sub_group_id += buyed_items_indexes[x]
-    if sub_group_id <= 20:
+    if buy_items_id <= 20:
         return group_id + 1
-    elif sub_group_id >= 30:
+    elif buy_items_id >= 30:
         return group_id + 3
     else:
         return group_id + 2 
@@ -97,14 +92,15 @@ if __name__ == '__main__':
    
     buyed_type_indexes = np.random.randint(0, number_of_types, size_of_dataset)
     buyed_items_indexes = buy_all_items(buyed_type_indexes, created_items, size_of_dataset)
-    buyer_group = list(map(lambda x, y: buy_group(x, y), buyed_type_indexes, buyed_items_indexes))
+    buyed_items_ids = buy_items_ids(buyed_items_indexes, size_of_dataset)
+    buyer_group = list(map(lambda x, y: buy_group(x, y), buyed_type_indexes, buyed_items_ids))
     
     buyed_types = buy_types(buyed_type_indexes, created_items, size_of_dataset)
     buyed_items = buy_items(buyed_type_indexes, buyed_items_indexes, created_items, size_of_dataset)
-    buyed_items_ids = buy_items_ids(buyed_items_indexes, size_of_dataset)
     
     
-    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'type_index': buyed_type_indexes, 'item_indexes': buyed_items_ids, 'buyer_group': buyer_group}
+    
+    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'buyed_type_indexes': buyed_type_indexes, 'buyed_items_ids': buyed_items_ids, 'buyer_group': buyer_group}
     
     df = pd.DataFrame(raw_data)
     
