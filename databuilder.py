@@ -100,7 +100,7 @@ if __name__ == '__main__':
     
     
     
-    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'buyed_type_indexes': buyed_type_indexes, 'buyed_items_ids': buyed_items_ids, 'buyer_group': buyer_group}
+    raw_data = {'type': buyed_types, 'buyed_items': buyed_items,  'type_index': buyed_type_indexes, 'items_id': buyed_items_ids, 'buyer_group': buyer_group}
     
     df = pd.DataFrame(raw_data)
     
