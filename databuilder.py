@@ -35,22 +35,39 @@ def buy_customer_items():
         items[buyed_item] = 1 
     return items
 
+# return a single string
+#def buy_customer_items_id(type_indexes, item_indexes, size_of_dataset):
+#    items = []
+#    for x in range(size_of_dataset):
+#        type_index = type_indexes[x]
+#        sub_items_indexes = item_indexes[x]
+#        str_id = ''
+#        for y in range(number_of_types):
+#            for k in range(number_of_items_per_type):
+#                if y == type_index:
+#                    str_id += str(sub_items_indexes[k])
+#                else:
+#                    str_id += '0'
+#        items.append(int(str_id))
+#    return items
+    
+# return a 30-column array
 def buy_customer_items_id(type_indexes, item_indexes, size_of_dataset):
     items = []
     for x in range(size_of_dataset):
         type_index = type_indexes[x]
         sub_items_indexes = item_indexes[x]
-        str_id = ''
+        sub_items = []
         for y in range(number_of_types):
             for k in range(number_of_items_per_type):
                 if y == type_index:
-                    str_id += str(sub_items_indexes[k])
+                    sub_items.append(sub_items_indexes[k])
                 else:
-                    str_id += '0'
-        items.append(int(str_id))
+                    sub_items.append(0)
+        items.append(sub_items)
     return items
     
-
+    
 # Defines the items buyed by all customers
 def buy_all_items(type_indexes, created_items, size_of_dataset):
     items = []
