@@ -1,4 +1,4 @@
-from random import random, randrange, getrandbits, randint, sample
+from random import randint, sample
 import pandas as pd
 import numpy as np
 
@@ -24,10 +24,9 @@ def create_items():
     return [create_item(x, y)
             for x in item_types for y in range(number_of_items_per_type)]
 
+
 # Defines the items buyed by a single customer as a 0/1 30-column array (1
 # = buyed)
-
-
 def buy_customer_items(type_index):
     items_indexes = sample(
         range(number_of_items_per_type),
@@ -36,9 +35,8 @@ def buy_customer_items(type_index):
     return [1 if x in items_indexes else casual_buy()
             for x in range(number_of_types * number_of_items_per_type)]
 
+
 # randomly returns 0 or 1
-
-
 def casual_buy():
     rnd = randint(0, 100)
     if rnd < 10:
@@ -52,19 +50,16 @@ def buy_all_items(type_indexes):
     return [buy_customer_items(type_indexes[x])
             for x in range(size_of_dataset)]
 
+
 # Map the type_index to its name
-
-
 def buy_types(type_indexes):
     return [item_types[type_indexes[x]] for x in range(size_of_dataset)]
 
+
 # Map the type_index/item_index to its name
-
-
-def buy_items(type_indexes, item_indexes, created_items):
+def buy_items(item_indexes, created_items):
     items = []
     for x in range(size_of_dataset):
-        type_index = type_indexes[x]
         sub_items_indexes = item_indexes[x]
         sub_items = [
             created_items[y] for y in range(
@@ -82,7 +77,6 @@ if __name__ == '__main__':
 
     buyed_types = buy_types(buyed_type_indexes)
     buyed_items = buy_items(
-        buyed_type_indexes,
         buyed_items_indexes,
         created_items)
 
