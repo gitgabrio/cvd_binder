@@ -7,5 +7,6 @@ cd dati_vaccinazioni
 wget https://github.com/italia/covid19-opendata-vaccini/blob/master/dati/somministrazioni-vaccini-summary-latest.csv
 cd ..
 mkdir dati_lockdown
+cd dati_lockdown
 wget https://github.com/gitgabrio/cvd_analysis/blob/main/EvoluzioneLockdown.csv
 cd ..
