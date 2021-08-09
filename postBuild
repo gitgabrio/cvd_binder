@@ -4,9 +4,9 @@ wget -r -nd -l1 -A csv --reject="index.html*"  --retry-on-http-error=429 https:/
 cd ..
 mkdir dati_vaccinazioni
 cd dati_vaccinazioni
-wget https://github.com/italia/covid19-opendata-vaccini/blob/master/dati/somministrazioni-vaccini-summary-latest.csv
+wget https://raw.github.com/italia/covid19-opendata-vaccini/master/dati/somministrazioni-vaccini-summary-latest.csv
 cd ..
 mkdir dati_lockdown
 cd dati_lockdown
-wget https://github.com/gitgabrio/cvd_analysis/blob/main/EvoluzioneLockdown.csv
+wget https://raw.github.com/gitgabrio/cvd_analysis/main/EvoluzioneLockdown.csv
 cd ..
