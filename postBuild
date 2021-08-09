@@ -1,0 +1,11 @@
+mkdir dati_covid
+cd dati_covid
+wget -r -nd -l1 -A csv --reject="index.html*"  --retry-on-http-error=429 https://github.com/pcm-dpc/COVID-19/tree/master/dati-regioni/ 
+cd ..
+mkdir dati_vaccinazioni
+cd dati_vaccinazioni
+wget https://github.com/italia/covid19-opendata-vaccini/blob/master/dati/somministrazioni-vaccini-summary-latest.csv
+cd ..
+mkdir dati_lockdown
+wget https://github.com/gitgabrio/cvd_analysis/blob/main/EvoluzioneLockdown.csv
+cd ..
